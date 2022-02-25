@@ -12,6 +12,16 @@ pipeline {
         stage('test') {
             steps {
                 script {
+                    if (env.BRANCH_NAME != null) {
+                        echo '1'
+                    }
+                    if (env.BRANCH_NAME != '') {
+                        echo '2'
+                    }
+                    if (env.BRANCH_NAME != "") {
+                        echo '3'
+                    }
+
                     if (env.BRANCH_NAME != null && env.BRANCH_NAME != '') {
                         env.TAG = 'dev'
                     } else {
