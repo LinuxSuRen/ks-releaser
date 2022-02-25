@@ -34,19 +34,23 @@ pipeline {
 
         stage('build image') {
             steps {
-                sh '''
-                docker build -t ${IMAGE} .
-                '''
+                container('base') {
+                    sh '''
+                    docker build -t ${IMAGE}:${env.IMAG_TAG} .
+                    '''
+                }
             }
         }
 
         stage('push image') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'USER', passwordVariable: 'PWD')]) {
-                    sh '''
-                    docker login -u$USER -p$PWD
-                    docker push -t ${IMAGE} .
-                    '''
+                container('base') {
+                    withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'USER', passwordVariable: 'PWD')]) {
+                        sh '''
+                        docker login -u$USER -p$PWD
+                        docker push -t ${IMAGE}:${env.IMAG_TAG} .
+                        '''
+                    }
                 }
             }
         }
