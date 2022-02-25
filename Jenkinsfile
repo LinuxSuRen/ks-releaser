@@ -24,6 +24,7 @@ pipeline {
 
                     if (env.BRANCH_NAME != null && env.BRANCH_NAME != '') {
                         env.TAG = 'dev'
+                        echo '4'
                     } else {
                         env.TAG = env.TAG_NAME
                     }
