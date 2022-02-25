@@ -39,7 +39,7 @@ pipeline {
                         env.IMAGE_PATH = env.IMAGE + ":" + env.IMAG_TAG
                     }
                     sh '''
-                    docker build -t "${env.IMAGE_PATH}" .
+                    docker build -t $IMAGE_PATH .
                     '''
                 }
             }
@@ -54,7 +54,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'USER', passwordVariable: 'PWD')]) {
                         sh '''
                         docker login -u$USER -p$PWD
-                        docker push -t "${env.IMAGE_PATH}" .
+                        docker push -t $IMAGE_PATH .
                         '''
                     }
                 }
