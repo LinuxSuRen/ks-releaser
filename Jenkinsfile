@@ -5,7 +5,6 @@ pipeline {
 
     environment {
         IMAGE = 'surenpi/ks-releaser'
-        IMAG_TAG = ''
     }
 
     stages {
