@@ -11,6 +11,6 @@ COPY main.go main.go
 RUN go build -o ks-releaser main.go
 
 FROM gcr.io/distroless/static:nonroot
-COPY --from=builder ks-releaser /ks-releaser
+COPY --from=builder /var/app/ks-releaser /ks-releaser
 
 ENTRYPOINT ["/ks-releaser"]
