@@ -51,7 +51,7 @@ pipeline {
                     script {
                         env.IMAGE_PATH = env.IMAGE + ":" + env.IMAG_TAG
                     }
-                    withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'USER', passwordVariable: 'PWD')]) {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USER', passwordVariable: 'PWD')]) {
                         sh '''
                         docker login -u$USER -p$PWD
                         docker push -t $IMAGE_PATH .
