@@ -29,7 +29,7 @@ pipeline {
                         env.IMAG_TAG = env.TAG_NAME
                     }
                 }
-                echo "$IMAG_TAG"
+                echo "${env.IMAG_TAG}"
             }
         }
 
