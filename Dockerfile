@@ -1,6 +1,16 @@
-# Use distroless as minimal base image to package the manager binary
-# Refer to https://github.com/GoogleContainerTools/distroless for more details
+FROM golang:1.16 as builder
+
+WORKDIR /var/app
+
+COPY api api
+COPY controllers controllers
+COPY go.mod go.mod
+COPY go.sum go.sum
+COPY main.go main.go
+
+RUN go build -o ks-releaser main.go
+
 FROM gcr.io/distroless/static:nonroot
-COPY ks-releaser /ks-releaser
+COPY --from=builder ks-releaser /ks-releaser
 
 ENTRYPOINT ["/ks-releaser"]
