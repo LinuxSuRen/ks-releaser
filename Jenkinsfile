@@ -33,22 +33,28 @@ pipeline {
         }
 
         stage('build image') {
+            environment {
+                IMAGE_PATH = env.IMAGE + ':' + env.IMAG_TAG
+            }
             steps {
                 container('base') {
                     sh '''
-                    docker build -t "${env.IMAGE}:${env.IMAG_TAG}" .
+                    docker build -t "${env.IMAGE_PATH}" .
                     '''
                 }
             }
         }
 
         stage('push image') {
+            environment {
+                IMAGE_PATH = env.IMAGE + ':' + env.IMAG_TAG
+            }
             steps {
                 container('base') {
                     withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'USER', passwordVariable: 'PWD')]) {
                         sh '''
                         docker login -u$USER -p$PWD
-                        docker push -t "${env.IMAGE}:${env.IMAG_TAG}" .
+                        docker push -t "${env.IMAGE_PATH}" .
                         '''
                     }
                 }
