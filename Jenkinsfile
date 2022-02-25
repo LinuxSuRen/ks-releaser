@@ -36,7 +36,7 @@ pipeline {
             steps {
                 container('base') {
                     sh '''
-                    docker build -t ${env.IMAGE}:${env.IMAG_TAG} .
+                    docker build -t "${env.IMAGE}:${env.IMAG_TAG}" .
                     '''
                 }
             }
@@ -48,7 +48,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'USER', passwordVariable: 'PWD')]) {
                         sh '''
                         docker login -u$USER -p$PWD
-                        docker push -t ${env.IMAGE}:${env.IMAG_TAG} .
+                        docker push -t "${env.IMAGE}:${env.IMAG_TAG}" .
                         '''
                     }
                 }
