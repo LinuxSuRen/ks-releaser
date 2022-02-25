@@ -36,7 +36,7 @@ pipeline {
             steps {
                 container('base') {
                     script {
-                        env.IMAGE_PATH = env.IMAGE . ':' . env.IMAG_TAG
+                        env.IMAGE_PATH = env.IMAGE + ":" + env.IMAG_TAG
                     }
                     sh '''
                     docker build -t "${env.IMAGE_PATH}" .
@@ -49,7 +49,7 @@ pipeline {
             steps {
                 container('base') {
                     script {
-                        env.IMAGE_PATH = env.IMAGE . ':' . env.IMAG_TAG
+                        env.IMAGE_PATH = env.IMAGE + ":" + env.IMAG_TAG
                     }
                     withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'USER', passwordVariable: 'PWD')]) {
                         sh '''
